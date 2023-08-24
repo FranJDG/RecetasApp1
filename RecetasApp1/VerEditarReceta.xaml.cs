@@ -1,15 +1,13 @@
 using RecetasApp1.Models;
 using RecetasApp1.Data;
-using RecetasApp1.ViewModels;
 
 namespace RecetasApp1;
 
 public partial class VerEditarReceta : ContentPage
-{
-    private readonly RecetasViewModel _recetasViewModel;
-    private Receta receta;
+{    
+    private Recetas receta;
 
-	public VerEditarReceta(Receta recetaSeleccionada, RecetasViewModel recetasViewModel)
+	public VerEditarReceta(Recetas recetaSeleccionada)
 	{
 		InitializeComponent();
 
@@ -21,8 +19,7 @@ public partial class VerEditarReceta : ContentPage
 		ToolbarItems.Add(editButton);
 
 		receta = recetaSeleccionada;
-        BindingContext = recetaSeleccionada;
-        _recetasViewModel = recetasViewModel;
+        BindingContext = recetaSeleccionada;        
 		Title = recetaSeleccionada.Name.ToUpper();		
     }
 
@@ -42,16 +39,16 @@ public partial class VerEditarReceta : ContentPage
 
 	private void Actualizar()
 	{
-        if (!string.IsNullOrEmpty(nombre.Text) && !string.IsNullOrEmpty(elavoracion.Text))
+        if (!string.IsNullOrEmpty(nombre.Text) && !string.IsNullOrEmpty(instrucciones.Text))
         { 
             try
             {
                 var db = new SQLiteService().GetConnection();
 
                 receta.Name = nombre.Text;
-                receta.Elavoration = elavoracion.Text;
+                receta.Instructions = instrucciones.Text;
 
-                _recetasViewModel.ActualizarReceta(receta);                
+                db.Update(receta);               
 
                 SoloLectura(true);
 
@@ -91,6 +88,6 @@ public partial class VerEditarReceta : ContentPage
     private void SoloLectura(bool readable)
     {
         nombre.IsReadOnly = readable;
-        elavoracion.IsReadOnly = readable;
+        instrucciones.IsReadOnly = readable;
     }
 }

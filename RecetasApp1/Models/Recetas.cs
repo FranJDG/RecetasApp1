@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace RecetasApp1.Models
 {
-    [Table("Receta")]
-    public class Receta
+    [Table("Recetas")]
+    public class Recetas
     {
         [PrimaryKey, AutoIncrement]
         public int IdReceta { get; set; }
         [MaxLength(40)]
         public string Name { get; set; }
         [MaxLength(500)]
-        public string Elavoration { get; set; }
+        public string Instructions { get; set; }
     }
     
 }

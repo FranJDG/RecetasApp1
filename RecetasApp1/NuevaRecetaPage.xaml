@@ -12,7 +12,7 @@
             
             <Entry x:Name="nombre" Placeholder="Nombre de la receta" MaxLength="40"></Entry>
             
-            <Editor x:Name="elavoracion" Placeholder="Elavoración" AutoSize="TextChanges" MaxLength="500"></Editor>
+            <Editor x:Name="instrucciones" Placeholder="Instrucciones" AutoSize="TextChanges" MaxLength="500"></Editor>
         </VerticalStackLayout>
     </ScrollView>    
 </ContentPage>

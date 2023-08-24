@@ -5,7 +5,7 @@
              Title="Mis recetas">
 
     <ScrollView>
-        <ListView x:Name="listaRecetas" Margin="30" ItemTapped="listaRecetas_ItemTapped" ItemsSource="{Binding Recetas}">
+        <ListView x:Name="listaRecetas" Margin="30" ItemTapped="listaRecetas_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

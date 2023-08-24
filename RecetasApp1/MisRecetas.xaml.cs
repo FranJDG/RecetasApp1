@@ -1,72 +1,66 @@
 using Microsoft.Data.Sqlite;
 using RecetasApp1.Data;
 using RecetasApp1.Models;
-using RecetasApp1.ViewModels;
 //using static Android.Content.ClipData;
 
 namespace RecetasApp1;
 
 public partial class MisRecetas : ContentPage
 {
-    private readonly RecetasViewModel _recetasViewModel;    
-
-    public MisRecetas(RecetasViewModel recetasViewModel)
+    public MisRecetas()
 	{
-		InitializeComponent();
+		InitializeComponent();       
 
-        _recetasViewModel = recetasViewModel;
-        BindingContext = _recetasViewModel;
-
-        //MostrarRecetas();
+        MostrarRecetas();
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _recetasViewModel.CargarRecetas(); // Recargar la colección de recetas
+        MostrarRecetas();
     }
 
 
-    //private void MostrarRecetas()
-    //{
-    //    try
-    //    {
-    //        var db = new SQLiteService().GetConnection();
-    //        listaRecetas.ItemsSource = db.Table<Receta>().ToList();
-    //    }
-    //    catch (Exception ex)
-    //    {
+    private void MostrarRecetas()
+    {
+        try
+        {
+            var db = new SQLiteService().GetConnection();
+            listaRecetas.ItemsSource = db.Table<Recetas>().ToList();
+        }
+        catch (Exception ex)
+        {
 
-    //        DisplayAlert("Error", ex.Message, "Ok");
-    //    }
+            DisplayAlert("Error", ex.Message, "Ok");
+        }
 
-    //}
+    }
 
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
-        var item = (Receta)(sender as MenuItem).CommandParameter;
+        var item = (Recetas)(sender as MenuItem).CommandParameter;
 
         if (await DisplayAlert("Confirmación", $"¿Seguro que desea eliminar '{item.Name.ToUpper()}'?", "Si", "No"))
         {            
             try
             {
                 var db = new SQLiteService().GetConnection();
-                db.Delete<Receta>(item.IdReceta);
+                db.Delete<Recetas>(item.IdReceta);
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "Ok");
             }                              
                 
-            //MostrarRecetas();  
+            MostrarRecetas();  
         }
     }
 
     private async void listaRecetas_ItemTapped(object sender, ItemTappedEventArgs e)
     { 
-        if (e.Item is Receta recetaSeleccionada)
+        if (e.Item is Recetas recetaSeleccionada)
         {
-            await Navigation.PushAsync(new VerEditarReceta(recetaSeleccionada, _recetasViewModel));            
+            await Navigation.PushAsync(new VerEditarReceta(recetaSeleccionada));            
         }
     }
 }

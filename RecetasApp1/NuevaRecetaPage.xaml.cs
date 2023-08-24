@@ -1,15 +1,12 @@
 //using Android.App;
 using RecetasApp1.Data;
 using RecetasApp1.Models;
-using RecetasApp1.ViewModels;
 //using static Android.Webkit.ConsoleMessage;
 
 namespace RecetasApp1;
 
 public partial class NuevaRecetaPage : ContentPage
 {
-    private readonly RecetasViewModel _recetasViewModel;
-
     public NuevaRecetaPage()
 	{
 		InitializeComponent();		
@@ -27,18 +24,18 @@ public partial class NuevaRecetaPage : ContentPage
 
     private void Guardar()
     {        
-        if (!string.IsNullOrEmpty(nombre.Text) && !string.IsNullOrEmpty(elavoracion.Text))
+        if (!string.IsNullOrEmpty(nombre.Text) && !string.IsNullOrEmpty(instrucciones.Text))
         {
             try
             {
                 var db = new SQLiteService().GetConnection();
-                var newReceta = new Receta
+                var newReceta = new Recetas
                 {
                     Name = nombre.Text,
-                    Elavoration = elavoracion.Text
+                    Instructions = instrucciones.Text
                 };
 
-                db.CreateTable<Receta>();
+                db.CreateTable<Recetas>();
                 db.Insert(newReceta);
 
                 LimpiarFormulario();
@@ -60,7 +57,7 @@ public partial class NuevaRecetaPage : ContentPage
     private void LimpiarFormulario()
     {
         nombre.Text = string.Empty;
-        elavoracion.Text = string.Empty;
+        instrucciones.Text = string.Empty;
     }
 
     //Método para mostrar mensajes en pantalla de manera temporal

@@ -1,18 +1,14 @@
 ﻿using RecetasApp1.Data;
 using RecetasApp1.Models;
-using RecetasApp1.ViewModels;
 
 namespace RecetasApp1
 {
     public partial class MainPage : ContentPage
-    {
-        private readonly RecetasViewModel _recetasViewModel;
-
+    {   
         public MainPage()
         {
-            InitializeComponent();
-            _recetasViewModel = new RecetasViewModel();
-            BindingContext = _recetasViewModel;
+            InitializeComponent();           
+            
         }
 
         private async void NuevaReceta_Clicked(object sender, EventArgs e)
@@ -31,10 +27,10 @@ namespace RecetasApp1
 
             try
             {
-                var item = db.Table<Receta>().Any();
+                var item = db.Table<Recetas>().Any();
                 if (item)
                 {
-                    await Navigation.PushAsync(new MisRecetas(_recetasViewModel));
+                    await Navigation.PushAsync(new MisRecetas());
                 }
                 else
                 {
