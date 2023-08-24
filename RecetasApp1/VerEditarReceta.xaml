@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecetasApp1.VerEditarReceta"
+             Title="{Binding Name}">
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="30" >
+            <Label Text="Modo edición" VerticalOptions="Center" HorizontalOptions="Center"  IsVisible="false"/>
+
+            <Label x:Name="mensaje" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="false" FontSize="Subtitle"/>
+
+            <Label Text="Nombre:" FontAttributes="Bold"></Label>
+            <Entry Text="{Binding Name}" x:Name="nombre" Placeholder="Nombre de la receta" MaxLength="40" IsReadOnly="True"></Entry>
+
+            <Label Text="Elavoración:" FontAttributes="Bold"></Label>
+            <Editor Text="{Binding Elavoration}" x:Name="elavoracion" Placeholder="Elavoración" AutoSize="TextChanges" MaxLength="500" IsReadOnly="True"></Editor>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

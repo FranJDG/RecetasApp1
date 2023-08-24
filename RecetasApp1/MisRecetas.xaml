@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecetasApp1.MisRecetas"
+             Title="Mis recetas">
+
+    <ScrollView>
+        <ListView x:Name="listaRecetas" Margin="30" ItemTapped="listaRecetas_ItemTapped" ItemsSource="{Binding Recetas}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem 
+                                x:Name="BtnDelete" 
+                                Text="Eliminar" 
+                                IconImageSource="eliminar.png"
+                                IsDestructive="True" 
+                                Clicked="BtnDelete_Clicked"
+                                CommandParameter="{Binding .}"                                
+                                >
+
+                            </MenuItem>
+                        </ViewCell.ContextActions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding Name}" VerticalOptions="Center" TextTransform="Uppercase"></Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ScrollView>
+    
+</ContentPage>
