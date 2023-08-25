@@ -11,8 +11,8 @@ namespace RecetasApp1;
 public partial class NuevaRecetaPage : ContentPage
 {
     private ObservableCollection<IngredienteClass> ingredientes = new ObservableCollection<IngredienteClass>();
-    private int tiempoCoccion;
-    private int numeroComensales;
+    private int tiempoCoccion = 30;
+    private int numeroComensales = 4;
 
     public NuevaRecetaPage()
 	{
@@ -64,7 +64,7 @@ public partial class NuevaRecetaPage : ContentPage
 
                 ingredientes.Clear();
                 LimpiarFormulario();
-                ShowMessage("Se ha guardado correctamente", 3000);
+                DisplayAlert("", "Se ha guardado correctamente", "Ok");
             }
             catch (Exception ex)
             {

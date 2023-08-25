@@ -79,7 +79,7 @@ public partial class VerEditarReceta : ContentPage
 
                 EditButton();
 
-                ShowMessage("Se ha actualizado correctamente", 3000);
+                DisplayAlert("", "Se ha actualizado correctamente", "Ok");
             }
             catch (Exception ex)
             {
