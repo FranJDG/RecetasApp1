@@ -12,8 +12,49 @@
             <Label Text="Nombre:" FontAttributes="Bold"></Label>
             <Entry Text="{Binding Name}" x:Name="nombre" Placeholder="Nombre de la receta" MaxLength="40" IsReadOnly="True"></Entry>
 
+            <Label Text="Categoría:" x:Name="categoriaLabel" FontAttributes="Bold"></Label>
+            <Entry Text="{Binding Category}" x:Name="categoriaEntry" Placeholder="Categoría" IsReadOnly="True"></Entry>            
+            <Picker x:Name="categoria" Title="Categoría" HorizontalOptions="CenterAndExpand" IsVisible="false" SelectedItem="{Binding Category}">
+                <!-- Aquí agregar opciones de categoría -->
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Snacks y aperitivos</x:String>
+                        <x:String>Entrante</x:String>
+                        <x:String>Plato principal</x:String>
+                        <x:String>Sopas y guisos</x:String>
+                        <x:String>Ensaladas</x:String>
+                        <x:String>Postre</x:String>
+                        <x:String>Bebidas y cócteles</x:String>
+                        <x:String>Desayuno</x:String>
+                        <x:String>Almuerzo</x:String>
+                        <x:String>Merienda</x:String>
+                        <x:String>Cena</x:String>
+                        <x:String>Internacional</x:String>
+                        <x:String>Ocasiones especiales</x:String>
+                        <x:String>Panadería y repostería</x:String>
+                        <x:String>Comida saludable</x:String>
+                        <x:String>Vegana</x:String>
+                        <x:String>Comida rápida</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Número de comensales:" x:Name="comensalesLabel" FontAttributes="Bold"></Label>
+            <Entry Text="{Binding Diners}" x:Name="comensalesEntry" Placeholder="Comensales" IsReadOnly="True"></Entry>
+            <Label x:Name="numComensales" Text="{Binding Value, Source={x:Reference sliderComensales}, StringFormat='Número de comensales: {0}'}" IsVisible="false"/>
+            <Slider x:Name="sliderComensales" Maximum="20" Value="{Binding Diners}" ValueChanged="slider_ValueChangedUno" ThumbColor="Green" MinimumTrackColor="Green" MaximumTrackColor="blue"
+                    IsVisible="false"/>
+
+            <Label Text="Tiempo de preparación:" x:Name="tiempoLabel" FontAttributes="Bold"></Label>
+            <Entry Text="{Binding Time}" x:Name="tiempoEntry" Placeholder="Tiempo" IsReadOnly="True"></Entry>
+            <Label x:Name="tiempoPreparacion" Text="{Binding Value, Source={x:Reference sliderMinutos}, StringFormat='Tiempo de preparación: {0} minutos'}" IsVisible="false"/>
+            <Slider x:Name="sliderMinutos" Maximum="240" Value="{Binding Time}" ValueChanged="slider_ValueChangedCinco" ThumbColor="Green" MinimumTrackColor="Green" MaximumTrackColor="blue"
+                    IsVisible="false"/>
+
             <Label Text="Instrucciones:" FontAttributes="Bold"></Label>
             <Editor Text="{Binding Instructions}" x:Name="instrucciones" Placeholder="Instrucciones" AutoSize="TextChanges" MaxLength="500" IsReadOnly="True"></Editor>
+
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
