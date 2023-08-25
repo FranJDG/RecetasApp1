@@ -26,7 +26,7 @@ public partial class MisRecetas : ContentPage
         try
         {
             var db = new SQLiteService().GetConnection();
-            listaRecetas.ItemsSource = db.Table<Recetas>().ToList();
+            listaRecetas.ItemsSource = db.Table<Receta>().ToList();
         }
         catch (Exception ex)
         {
@@ -38,14 +38,14 @@ public partial class MisRecetas : ContentPage
 
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
-        var item = (Recetas)(sender as MenuItem).CommandParameter;
+        var item = (Receta)(sender as MenuItem).CommandParameter;
 
         if (await DisplayAlert("Confirmación", $"¿Seguro que desea eliminar '{item.Name.ToUpper()}'?", "Si", "No"))
         {            
             try
             {
                 var db = new SQLiteService().GetConnection();
-                db.Delete<Recetas>(item.IdReceta);
+                db.Delete<Receta>(item.IdReceta);
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ public partial class MisRecetas : ContentPage
 
     private async void listaRecetas_ItemTapped(object sender, ItemTappedEventArgs e)
     { 
-        if (e.Item is Recetas recetaSeleccionada)
+        if (e.Item is Receta recetaSeleccionada)
         {
             await Navigation.PushAsync(new VerEditarReceta(recetaSeleccionada));            
         }

@@ -12,7 +12,7 @@
             <Label Text="Nombre:" FontAttributes="Bold"></Label>
             <Entry Text="{Binding Name}" x:Name="nombre" Placeholder="Nombre de la receta" MaxLength="40" IsReadOnly="True"></Entry>
 
-            <Label Text="Elavoración:" FontAttributes="Bold"></Label>
+            <Label Text="Instrucciones:" FontAttributes="Bold"></Label>
             <Editor Text="{Binding Instructions}" x:Name="instrucciones" Placeholder="Instrucciones" AutoSize="TextChanges" MaxLength="500" IsReadOnly="True"></Editor>
         </VerticalStackLayout>
     </ScrollView>

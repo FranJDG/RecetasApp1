@@ -1,12 +1,19 @@
 //using Android.App;
 using RecetasApp1.Data;
 using RecetasApp1.Models;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Text.RegularExpressions;
 //using static Android.Webkit.ConsoleMessage;
 
 namespace RecetasApp1;
 
 public partial class NuevaRecetaPage : ContentPage
 {
+    private ObservableCollection<IngredienteClass> ingredientes = new ObservableCollection<IngredienteClass>();
+    private int tiempoCoccion;
+    private int numeroComensales;
+
     public NuevaRecetaPage()
 	{
 		InitializeComponent();		
@@ -19,25 +26,43 @@ public partial class NuevaRecetaPage : ContentPage
 
         // Agregar los botones a la colección ToolbarItems
         ToolbarItems.Add(saveButton);
-        
-    }
+
+        listaIngredientes.ItemsSource = ingredientes;
+    }    
 
     private void Guardar()
     {        
-        if (!string.IsNullOrEmpty(nombre.Text) && !string.IsNullOrEmpty(instrucciones.Text))
+        if (!string.IsNullOrWhiteSpace(nombre.Text) && !string.IsNullOrWhiteSpace(instrucciones.Text) 
+            && categoria.SelectedItem != null)
         {
             try
             {
                 var db = new SQLiteService().GetConnection();
-                var newReceta = new Recetas
+                var newReceta = new Receta
                 {
-                    Name = nombre.Text,
-                    Instructions = instrucciones.Text
+                    Name = nombre.Text.Trim(),
+                    Category = categoria.SelectedItem.ToString(),
+                    Diners = numeroComensales,
+                    Time = tiempoCoccion,
+                    Instructions = instrucciones.Text.Trim()
                 };
 
-                db.CreateTable<Recetas>();
+                db.CreateTable<Receta>();                
                 db.Insert(newReceta);
 
+                db.CreateTable<Ingrediente>();
+                foreach (var item in ingredientes)
+                {
+                    Ingrediente newIngrediente = new Ingrediente{ 
+                        NameI = item.Nombre,
+                        Quantity = item.Cantidad,
+                        Unit = item.Medida,
+                        RecetaId = newReceta.IdReceta                        
+                    };
+                    db.Insert(newIngrediente);
+                }
+
+                ingredientes.Clear();
                 LimpiarFormulario();
                 ShowMessage("Se ha guardado correctamente", 3000);
             }
@@ -57,6 +82,9 @@ public partial class NuevaRecetaPage : ContentPage
     private void LimpiarFormulario()
     {
         nombre.Text = string.Empty;
+        categoria.SelectedItem = string.Empty;
+        sliderComensales.Value = 4;
+        sliderMinutos.Value = 30;
         instrucciones.Text = string.Empty;
     }
 
@@ -76,5 +104,105 @@ public partial class NuevaRecetaPage : ContentPage
           ShowMessage("¡Mensaje temporal!", 2000); // Mostrar el mensaje durante 2 segundos (2000 ms)
          */
     }
-    
+
+    private async void ShowMessageIngrediente(string message, int durationMilliseconds)
+    {
+        mensaje2.Text = message;
+        mensaje2.IsVisible = true;
+
+        await Task.Delay(durationMilliseconds);
+
+        mensaje2.IsVisible = false;
+        mensaje2.Text = "";
+    }
+
+
+    private void btnAgregarIngrediente_Clicked(object sender, EventArgs e)
+    {     
+        if (!string.IsNullOrWhiteSpace(ingrediente.Text) && !string.IsNullOrEmpty(cantidad.Text)
+            && medida.SelectedItem != null)
+        {  
+            ingredientes.Add(new IngredienteClass
+            {
+                Nombre = ingrediente.Text.ToUpper().Trim(),
+                Cantidad = Convert.ToDouble(cantidad.Text),
+                Medida = medida.SelectedItem.ToString().ToUpper()
+            });
+
+            ingrediente.Text = string.Empty;
+            cantidad.Text = string.Empty;
+            medida.SelectedItem = string.Empty;
+
+        }
+        else
+        {
+            ShowMessageIngrediente("Rellena todos los campos del ingrediente", 3000);
+        }
+    }
+
+    private void btnEliminarIngrediente_Clicked(object sender, EventArgs e)
+    {
+        if (listaIngredientes.SelectedItem != null)
+        {
+            IngredienteClass ingredienteSeleccionado = listaIngredientes.SelectedItem as IngredienteClass;
+
+            if (ingredienteSeleccionado != null)
+            {
+                ingredientes.Remove(ingredienteSeleccionado);
+            }
+
+        }
+        else
+        {
+            ShowMessageIngrediente("Selecciona el ingrediente que desea eliminar", 3000);
+        }
+    }
+
+    public class IngredienteClass
+    {
+        public string Nombre { get; set; }
+        public double Cantidad { get; set; }
+        public string Medida { get; set; }
+    }
+
+    //Comprobar que sea de tipo double
+    private void cantidad_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (!string.IsNullOrEmpty(e.NewTextValue) && !IsValidDoubleFormat(e.NewTextValue))
+        {
+            ((Entry)sender).Text = e.OldTextValue;
+        }
+    }
+
+    private bool IsValidDoubleFormat(string input)
+    {        
+
+        // Utilizar una expresión regular para validar el formato de número double con coma
+        string pattern = @"^\d+(,\d*)?$";
+        bool validFormat = Regex.IsMatch(input, pattern);
+
+        return validFormat;
+    }
+
+    private void slider_ValueChangedCinco(object sender, ValueChangedEventArgs e)
+    {
+        // Ajustar el valor del Slider para que sea múltiplo de 5 (sin decimales)
+        int step = 5;
+        int newStep = (int)Math.Round(e.NewValue / step);
+        int minutos = newStep * step;
+        ((Slider)sender).Value = minutos;
+
+        tiempoCoccion = minutos;        
+    }
+
+    private void slider_ValueChangedUno(object sender, ValueChangedEventArgs e)
+    {
+        // Ajustar el valor del Slider para que sea múltiplo de 1 (sin decimales)
+        int step = 1;
+        int newStep = (int)Math.Round(e.NewValue / step);
+        int personas = newStep * step;
+        ((Slider)sender).Value = personas;
+
+        numeroComensales = personas;
+    }
 }

@@ -5,9 +5,9 @@ namespace RecetasApp1;
 
 public partial class VerEditarReceta : ContentPage
 {    
-    private Recetas receta;
+    private Receta receta;
 
-	public VerEditarReceta(Recetas recetaSeleccionada)
+	public VerEditarReceta(Receta recetaSeleccionada)
 	{
 		InitializeComponent();
 
@@ -19,7 +19,7 @@ public partial class VerEditarReceta : ContentPage
 		ToolbarItems.Add(editButton);
 
 		receta = recetaSeleccionada;
-        BindingContext = recetaSeleccionada;        
+        BindingContext = recetaSeleccionada;   //Es necesario para poder hacer el binding en el código xaml  
 		Title = recetaSeleccionada.Name.ToUpper();		
     }
 

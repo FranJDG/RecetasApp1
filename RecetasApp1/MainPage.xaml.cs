@@ -27,7 +27,7 @@ namespace RecetasApp1
 
             try
             {
-                var item = db.Table<Recetas>().Any();
+                var item = db.Table<Receta>().Any();
                 if (item)
                 {
                     await Navigation.PushAsync(new MisRecetas());
