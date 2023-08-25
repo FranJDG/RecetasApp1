@@ -45,7 +45,7 @@
 
             <Editor x:Name="instrucciones" Placeholder="Instrucciones" AutoSize="TextChanges" MaxLength="500"></Editor>
 
-            <Label Text="Ingredientes:" FontAttributes="Bold" TextTransform="Uppercase"/>
+            <Label Text="INGREDIENTES:" FontAttributes="Bold"/>
             <Label x:Name="mensaje2" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="false" FontSize="Subtitle"/>
             <Entry x:Name="ingrediente" MaxLength="30" Placeholder="Ingrediente"/>
             

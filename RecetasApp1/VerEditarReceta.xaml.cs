@@ -1,6 +1,7 @@
 using RecetasApp1.Models;
 using RecetasApp1.Data;
 using System.Text.RegularExpressions;
+using System.Collections.ObjectModel;
 
 namespace RecetasApp1;
 
@@ -9,6 +10,7 @@ public partial class VerEditarReceta : ContentPage
     private Receta receta;
     private int numeroComensales;
     private int tiempoCoccion;
+    private ObservableCollection<IngredienteClass> ingredientes = new ObservableCollection<IngredienteClass>();
 
     public VerEditarReceta(Receta recetaSeleccionada)
 	{
@@ -18,7 +20,9 @@ public partial class VerEditarReceta : ContentPage
 
 		receta = recetaSeleccionada;
         BindingContext = recetaSeleccionada;   //Es necesario para poder hacer el binding en el código xaml  
-		Title = recetaSeleccionada.Name.ToUpper();		
+		Title = recetaSeleccionada.Name.ToUpper();
+        CargarIngredientes();
+        listaIngredientes.ItemsSource = ingredientes;
     }
 
 	private void Editar()
@@ -31,7 +35,7 @@ public partial class VerEditarReceta : ContentPage
 
 	private void Actualizar()
 	{
-        if (!string.IsNullOrEmpty(nombre.Text) && !string.IsNullOrEmpty(instrucciones.Text))
+        if (!string.IsNullOrWhiteSpace(nombre.Text) && !string.IsNullOrWhiteSpace(instrucciones.Text))
         { 
             try
             {
@@ -43,7 +47,27 @@ public partial class VerEditarReceta : ContentPage
                 receta.Instructions = instrucciones.Text;
                 receta.Time = tiempoCoccion;
 
-                db.Update(receta);               
+                db.Update(receta);
+                
+                //Primero elimino los ingredientes anteriores y despues inserto los nuevos
+                var oldIngredientes = db.Table<Ingrediente>().Where(i => i.RecetaId == receta.IdReceta).ToList();
+                
+                foreach( var item in oldIngredientes)
+                {
+                    db.Delete(item);
+                }
+                
+                foreach (var item in ingredientes)
+                {
+                    Ingrediente newIngrediente = new Ingrediente
+                    {
+                        NameI = item.Nombre,
+                        Quantity = item.Cantidad,
+                        Unit = item.Medida,
+                        RecetaId = receta.IdReceta
+                    };
+                    db.Insert(newIngrediente);
+                }
 
                 SoloLectura(true);
                 MostrarMenuEdicion(false);
@@ -107,6 +131,10 @@ public partial class VerEditarReceta : ContentPage
         tiempoEntry.IsVisible = !edit;
         tiempoPreparacion.IsVisible = edit;
         sliderMinutos.IsVisible = edit;
+
+        ingrediente.IsVisible = edit;
+        cantidadMedidaGrid.IsVisible = edit;
+        ingredientesBtn.IsVisible = edit;
     }
 
     private void slider_ValueChangedUno(object sender, ValueChangedEventArgs e)
@@ -130,6 +158,107 @@ public partial class VerEditarReceta : ContentPage
 
         tiempoCoccion = minutos;
     }
+
+
+    //Ingredientes ************************************************************************************
+
+    private void CargarIngredientes()
+    {
+        var db = new SQLiteService().GetConnection();
+
+        var listaIngredientes = db.Table<Ingrediente>().Where(i => i.RecetaId == receta.IdReceta).ToList();
+
+        foreach( var i in listaIngredientes ) 
+        {
+            ingredientes.Add(new IngredienteClass
+            {
+                Nombre = i.NameI,
+                Cantidad = i.Quantity,
+                Medida = i.Unit
+            });
+        }
+    }
+
+
+    private async void ShowMessageIngrediente(string message, int durationMilliseconds)
+    {
+        mensaje2.Text = message;
+        mensaje2.IsVisible = true;
+
+        await Task.Delay(durationMilliseconds);
+
+        mensaje2.IsVisible = false;
+        mensaje2.Text = "";
+    }
+
+
+    private void btnAgregarIngrediente_Clicked(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrWhiteSpace(ingrediente.Text) && !string.IsNullOrEmpty(cantidad.Text)
+            && medida.SelectedItem != null)
+        {
+            ingredientes.Add(new IngredienteClass
+            {
+                Nombre = ingrediente.Text.ToUpper().Trim(),
+                Cantidad = Convert.ToDouble(cantidad.Text),
+                Medida = medida.SelectedItem.ToString().ToUpper()
+            });
+
+            ingrediente.Text = string.Empty;
+            cantidad.Text = string.Empty;
+            medida.SelectedItem = string.Empty;
+
+        }
+        else
+        {
+            ShowMessageIngrediente("Rellena todos los campos del ingrediente", 3000);
+        }
+    }
+
+    private void btnEliminarIngrediente_Clicked(object sender, EventArgs e)
+    {
+        if (listaIngredientes.SelectedItem != null)
+        {
+            IngredienteClass ingredienteSeleccionado = listaIngredientes.SelectedItem as IngredienteClass;
+
+            if (ingredienteSeleccionado != null)
+            {
+                ingredientes.Remove(ingredienteSeleccionado);
+            }
+
+        }
+        else
+        {
+            ShowMessageIngrediente("Selecciona el ingrediente que desea eliminar", 3000);
+        }
+    }
+
+    public class IngredienteClass
+    {
+        public string Nombre { get; set; }
+        public double Cantidad { get; set; }
+        public string Medida { get; set; }
+    }
+
+    //Comprobar que sea de tipo double
+    private void cantidad_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (!string.IsNullOrEmpty(e.NewTextValue) && !IsValidDoubleFormat(e.NewTextValue))
+        {
+            ((Entry)sender).Text = e.OldTextValue;
+        }
+    }
+
+    private bool IsValidDoubleFormat(string input)
+    {
+
+        // Utilizar una expresión regular para validar el formato de número double con coma
+        string pattern = @"^\d+(,\d*)?$";
+        bool validFormat = Regex.IsMatch(input, pattern);
+
+        return validFormat;
+    }
+
 
     //***********************************************************************************************
     //Métodos para cambiar botones del menú

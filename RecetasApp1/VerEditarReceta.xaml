@@ -54,7 +54,61 @@
             <Label Text="Instrucciones:" FontAttributes="Bold"></Label>
             <Editor Text="{Binding Instructions}" x:Name="instrucciones" Placeholder="Instrucciones" AutoSize="TextChanges" MaxLength="500" IsReadOnly="True"></Editor>
 
+
+
+
+
+            <Label Text="INGREDIENTES:" FontAttributes="Bold"/>
             
+            <Label x:Name="mensaje2" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="false" FontSize="Subtitle"/>
+            
+            <Entry x:Name="ingrediente" MaxLength="30" Placeholder="Ingrediente" IsVisible="false"/>
+
+            <Grid x:Name="cantidadMedidaGrid" ColumnSpacing="10" IsVisible="false">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Entry x:Name="cantidad" Grid.Column="0" Keyboard="Numeric" MaxLength="15" Placeholder="Cantidad" TextChanged="cantidad_TextChanged"/>
+                <Picker x:Name="medida" Grid.Column="1" Title="Unidad" HorizontalOptions="CenterAndExpand">
+                    <!-- Aquí agregar opciones medida -->
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Gramos</x:String>
+                            <x:String>Litros</x:String>
+                            <x:String>Cucharadas</x:String>
+                            <x:String>Unidades</x:String>
+                            <x:String>Vasos</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Grid>
+
+            <Grid x:Name="ingredientesBtn" ColumnSpacing="10" IsVisible="false">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnAgregarIngrediente" Grid.Column="0" Text="Agregar" Clicked="btnAgregarIngrediente_Clicked" />
+                <Button x:Name="btnEliminarIngrediente" Grid.Column="1" Text="Eliminar" Clicked="btnEliminarIngrediente_Clicked" />
+            </Grid>
+
+            <ListView x:Name="listaIngredientes" HasUnevenRows="True" Margin="50,0" HeightRequest="100">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Label Text="- " FontSize="Medium"></Label>
+                                <Label Text="{Binding Nombre}" FontSize="Medium"/>
+                                <Label Text="{Binding Cantidad}" FontSize="Medium"/>
+                                <Label Text="{Binding Medida}" FontSize="Medium"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
