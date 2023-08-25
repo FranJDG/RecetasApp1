@@ -7,8 +7,15 @@ namespace RecetasApp1
     {   
         public MainPage()
         {
-            InitializeComponent();           
-            
+            InitializeComponent();            
+
+            var infoButton = new ToolbarItem("Info", "info.png", () =>
+            {
+                Info();
+            });
+
+            ToolbarItems.Add(infoButton);
+
         }
 
         private async void NuevaReceta_Clicked(object sender, EventArgs e)
@@ -42,6 +49,12 @@ namespace RecetasApp1
                 await DisplayAlert("", "Debes crear al menos una receta.", "Ok");
             }
 
+        }
+
+        private void Info()
+        {
+            DisplayAlert("", "Recetas\n\nCreado con .NET MAUI\n\nv1.0    25/08/2023\n\nFran Díaz", "Ok");
+            
         }
     }
 }
