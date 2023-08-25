@@ -14,7 +14,7 @@
 
             <Label Text="Categoría:" x:Name="categoriaLabel" FontAttributes="Bold"></Label>
             <Entry Text="{Binding Category}" x:Name="categoriaEntry" Placeholder="Categoría" IsReadOnly="True"></Entry>            
-            <Picker x:Name="categoria" Title="Categoría" HorizontalOptions="CenterAndExpand" IsVisible="false" SelectedItem="{Binding Category}">
+            <Picker x:Name="categoria" Title="Categoría" HorizontalOptions="StartAndExpand" IsVisible="false" SelectedItem="{Binding Category}">
                 <!-- Aquí agregar opciones de categoría -->
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
@@ -94,7 +94,7 @@
                 <Button x:Name="btnEliminarIngrediente" Grid.Column="1" Text="Eliminar" Clicked="btnEliminarIngrediente_Clicked" />
             </Grid>
 
-            <ListView x:Name="listaIngredientes" HasUnevenRows="True" Margin="50,0" HeightRequest="100">
+            <ListView x:Name="listaIngredientes" HasUnevenRows="True" HeightRequest="100">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

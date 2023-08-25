@@ -12,7 +12,7 @@
             
             <Entry x:Name="nombre" Placeholder="Nombre de la receta" MaxLength="40"></Entry>
 
-            <Picker x:Name="categoria" Title="Categoría" HorizontalOptions="CenterAndExpand">
+            <Picker x:Name="categoria" Title="Categoría" HorizontalOptions="StartAndExpand">
                 <!-- Aquí agregar opciones de categoría -->
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
@@ -79,7 +79,7 @@
                 <Button x:Name="btnEliminarIngrediente" Grid.Column="1" Text="Eliminar" Clicked="btnEliminarIngrediente_Clicked" />
             </Grid>
 
-            <ListView x:Name="listaIngredientes" HasUnevenRows="True" Margin="50,0" HeightRequest="100">
+            <ListView x:Name="listaIngredientes" HasUnevenRows="True" HeightRequest="100">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>                            
