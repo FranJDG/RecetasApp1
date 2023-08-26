@@ -94,7 +94,7 @@
                 <Button x:Name="btnEliminarIngrediente" Grid.Column="1" Text="Eliminar" Clicked="btnEliminarIngrediente_Clicked" />
             </Grid>
 
-            <ListView x:Name="listaIngredientes" HasUnevenRows="True" HeightRequest="100">
+            <ListView x:Name="listaIngredientes" HasUnevenRows="True" HeightRequest="200">
                 <ListView.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>
