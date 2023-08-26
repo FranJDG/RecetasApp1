@@ -45,7 +45,7 @@
 
             <Editor x:Name="instrucciones" Placeholder="Instrucciones" AutoSize="TextChanges" MaxLength="500"></Editor>
 
-            <Label Text="INGREDIENTES:" FontAttributes="Bold"/>
+            <Label Text="Ingredientes:" FontAttributes="Bold"/>
             <Label x:Name="mensaje2" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="false" FontSize="Subtitle"/>
             <Entry x:Name="ingrediente" MaxLength="30" Placeholder="Ingrediente"/>
             
@@ -79,16 +79,40 @@
                 <Button x:Name="btnEliminarIngrediente" Grid.Column="1" Text="Eliminar" Clicked="btnEliminarIngrediente_Clicked" />
             </Grid>
 
-            <ListView x:Name="listaIngredientes" HasUnevenRows="True" HeightRequest="100">
+            <ListView x:Name="listaIngredientes" HasUnevenRows="True">
+                <ListView.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="Ingrediente" FontAttributes="Italic" HorizontalTextAlignment="Center"></Label>
+                        <Label Grid.Column="1" Text="Cantidad" FontAttributes="Italic" HorizontalTextAlignment="Center"></Label>
+                        <Label Grid.Column="2" Text="Unidad" FontAttributes="Italic" HorizontalTextAlignment="Center"></Label>
+                    </Grid>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>                            
-                            <StackLayout Orientation="Horizontal" Spacing="10">
-                                <Label Text="- " FontSize="Medium"></Label>
-                                <Label Text="{Binding Nombre}" FontSize="Medium"/>
-                                <Label Text="{Binding Cantidad}" FontSize="Medium"/>
-                                <Label Text="{Binding Medida}" FontSize="Medium"/>                                
-                            </StackLayout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>                                    
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="70"></ColumnDefinition>
+                                    <ColumnDefinition Width="120"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                                                
+                                <Label Grid.Column="0" Text="{Binding Nombre}" FontSize="Default" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="1" Text="{Binding Cantidad}" FontSize="Default" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="2" Text="{Binding Medida}" FontSize="Default" HorizontalTextAlignment="Center"/>
+                            </Grid>
+                            <!--<StackLayout Orientation="Horizontal" Spacing="10">
+                                <Label Text="- " FontSize="Default"></Label>
+                                <Label Text="{Binding Nombre}" FontSize="Default"/>
+                                <Label Text="{Binding Cantidad}" FontSize="Default"/>
+                                <Label Text="{Binding Medida}" FontSize="Default"/>                                
+                            </StackLayout>-->
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

@@ -137,6 +137,8 @@ public partial class VerEditarReceta : ContentPage
         ingredientesBtn.IsVisible = edit;
     }
 
+    //Ajuste de los valores del slider ************************************************************************
+
     private void slider_ValueChangedUno(object sender, ValueChangedEventArgs e)
     {
         // Ajustar el valor del Slider para que sea múltiplo de 1 (sin decimales)
@@ -201,7 +203,7 @@ public partial class VerEditarReceta : ContentPage
             {
                 Nombre = ingrediente.Text.ToUpper().Trim(),
                 Cantidad = Convert.ToDouble(cantidad.Text),
-                Medida = medida.SelectedItem.ToString().ToUpper()
+                Medida = medida.SelectedItem.ToString()
             });
 
             ingrediente.Text = string.Empty;
@@ -240,7 +242,8 @@ public partial class VerEditarReceta : ContentPage
         public string Medida { get; set; }
     }
 
-    //Comprobar que sea de tipo double
+    //Comprobar que sea de tipo double *************************************************************************
+
     private void cantidad_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (!string.IsNullOrEmpty(e.NewTextValue) && !IsValidDoubleFormat(e.NewTextValue))
@@ -251,10 +254,16 @@ public partial class VerEditarReceta : ContentPage
 
     private bool IsValidDoubleFormat(string input)
     {
-
-        // Utilizar una expresión regular para validar el formato de número double con coma
-        string pattern = @"^\d+(,\d*)?$";
+        // Utilizar una expresión regular para validar el formato de número double con coma o punto
+        string pattern = @"^[0-9]+([,.][0-9]*)?$";
         bool validFormat = Regex.IsMatch(input, pattern);
+
+        // Si se encontró una coincidencia, reemplazar punto por coma
+        if (validFormat)
+        {
+            input = input.Replace(".", ",");
+            cantidad.Text = input;
+        }
 
         return validFormat;
     }
