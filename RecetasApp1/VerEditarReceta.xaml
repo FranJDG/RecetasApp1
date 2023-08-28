@@ -21,6 +21,14 @@
                 IsVisible="false"
                 VerticalOptions="Center" />
 
+            <ImageButton
+                x:Name="RecipeImage"
+                Clicked="btnFoto_Clicked"
+                HorizontalOptions="FillAndExpand"
+                IsEnabled="False"
+                Opacity="100"
+                Source="{Binding ImagePath}" />
+
             <Label FontAttributes="Bold" Text="Nombre:" />
             <Entry
                 x:Name="nombre"

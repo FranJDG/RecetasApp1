@@ -2,6 +2,7 @@ using RecetasApp1.Models;
 using RecetasApp1.Data;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
+using Android.Icu.Text;
 
 namespace RecetasApp1;
 
@@ -23,6 +24,7 @@ public partial class VerEditarReceta : ContentPage
         Title = recetaSeleccionada.Name.ToUpper();
         CargarIngredientes();
         listaIngredientes.ItemsSource = ingredientes;
+        _tempImagePath = recetaSeleccionada.ImagePath;
     }
 
     private void Editar()
@@ -46,6 +48,11 @@ public partial class VerEditarReceta : ContentPage
                 receta.Diners = numeroComensales;
                 receta.Instructions = instrucciones.Text;
                 receta.Time = tiempoCoccion;
+
+                if (!string.IsNullOrEmpty(_tempImagePath))
+                {
+                    receta.ImagePath = SaveImage(_tempImagePath);
+                }
 
                 db.Update(receta);
 
@@ -119,6 +126,8 @@ public partial class VerEditarReceta : ContentPage
     private void MostrarMenuEdicion(bool edit)
     {
         modoEdicion.IsVisible = edit;
+
+        RecipeImage.IsEnabled = edit;
 
         categoriaEntry.IsVisible = !edit;
         categoria.IsVisible = edit;
@@ -297,5 +306,52 @@ public partial class VerEditarReceta : ContentPage
         ToolbarItems.Add(saveButton);
     }
 
-    //*************************************************************************************************
+    //Foto ******************************************************************************************************
+
+    private string _tempImagePath;
+
+    private async void btnFoto_Clicked(object sender, EventArgs e)
+    {
+        var action = await DisplayActionSheet("Seleccionar foto", "Cancelar", null, "Tomar foto", "Elegir de la galería");
+
+        if (action == "Tomar foto")
+        {
+            await TakePhoto();
+        }
+        else if (action == "Elegir de la galería")
+        {
+            await ChoosePhoto();
+        }
+    }
+
+    private async Task TakePhoto()
+    {
+        var result = await MediaPicker.CapturePhotoAsync();
+        if (result != null)
+        {
+            RecipeImage.Source = result.FullPath;
+            _tempImagePath = result.FullPath;
+        }
+    }
+
+    private async Task ChoosePhoto()
+    {
+        var result = await MediaPicker.PickPhotoAsync();
+        if (result != null)
+        {
+            RecipeImage.Source = result.FullPath;
+            _tempImagePath = result.FullPath;
+        }
+    }
+
+    private string SaveImage(string sourcePath)
+    {
+        if (string.IsNullOrEmpty(sourcePath))
+            return null;
+
+        string newImagePath = Path.Combine(FileSystem.AppDataDirectory, $"{Guid.NewGuid()}.jpg");
+        File.Copy(sourcePath, newImagePath);
+
+        return newImagePath;
+    }
 }

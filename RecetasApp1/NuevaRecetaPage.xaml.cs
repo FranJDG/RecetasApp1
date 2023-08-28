@@ -46,6 +46,11 @@ public partial class NuevaRecetaPage : ContentPage
                     Instructions = instrucciones.Text.Trim()
                 };
 
+                if (!string.IsNullOrEmpty(_tempImagePath))
+                {
+                    newReceta.ImagePath = SaveImage(_tempImagePath);
+                }
+
                 db.CreateTable<Receta>();
                 db.Insert(newReceta);
 
@@ -86,6 +91,7 @@ public partial class NuevaRecetaPage : ContentPage
         sliderComensales.Value = 4;
         sliderMinutos.Value = 30;
         instrucciones.Text = string.Empty;
+        RecipeImage.IsVisible = false;
     }
 
     //Método para mostrar mensajes en pantalla de manera temporal
@@ -213,5 +219,56 @@ public partial class NuevaRecetaPage : ContentPage
         ((Slider)sender).Value = personas;
 
         numeroComensales = personas;
+    }
+
+    //Foto ******************************************************************************************************
+
+    private string _tempImagePath;
+
+    private async void btnFoto_Clicked(object sender, EventArgs e)
+    {
+        var action = await DisplayActionSheet("Seleccionar foto", "Cancelar", null, "Tomar foto", "Elegir de la galería");
+
+        if (action == "Tomar foto")
+        {
+            await TakePhoto();
+        }
+        else if (action == "Elegir de la galería")
+        {
+            await ChoosePhoto();
+        }
+    }
+
+    private async Task TakePhoto()
+    {
+        var result = await MediaPicker.CapturePhotoAsync();
+        if (result != null)
+        {
+            RecipeImage.Source = result.FullPath;
+            RecipeImage.IsVisible = true;
+            _tempImagePath = result.FullPath;
+        }
+    }
+
+    private async Task ChoosePhoto()
+    {
+        var result = await MediaPicker.PickPhotoAsync();
+        if (result != null)
+        {
+            RecipeImage.Source = result.FullPath;
+            RecipeImage.IsVisible = true;
+            _tempImagePath = result.FullPath;
+        }
+    }
+
+    private string SaveImage(string sourcePath)
+    {
+        if (string.IsNullOrEmpty(sourcePath))
+            return null;
+
+        string newImagePath = Path.Combine(FileSystem.AppDataDirectory, $"{Guid.NewGuid()}.jpg");
+        File.Copy(sourcePath, newImagePath);
+
+        return newImagePath;
     }
 }

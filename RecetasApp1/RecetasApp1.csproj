@@ -52,6 +52,7 @@
 	  <None Remove="Resources\Images\editar.png" />
 	  <None Remove="Resources\Images\eliminar.png" />
 	  <None Remove="Resources\Images\guardar.png" />
+	  <None Remove="Resources\Images\imagen.png" />
 	  <None Remove="Resources\Images\info.png" />
 	  <None Remove="Resources\Images\undo.png" />
 	</ItemGroup>

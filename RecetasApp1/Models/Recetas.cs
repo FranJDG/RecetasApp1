@@ -20,6 +20,7 @@ namespace RecetasApp1.Models
         public int Time { get; set; }
         [MaxLength(500)]
         public string Instructions { get; set; }
+        public string ImagePath { get; set; }
 
         //[Ignore] //Ignorar en la base de datos
         //[InverseProperty("Receta")] // Esto indica la relación con Ingredientes

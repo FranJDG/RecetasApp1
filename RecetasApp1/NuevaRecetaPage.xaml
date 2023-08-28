@@ -20,6 +20,16 @@
                 IsVisible="false"
                 VerticalOptions="Center" />
 
+            <Button
+                x:Name="hacerFoto"
+                Clicked="btnFoto_Clicked"
+                Text="Agregar Foto" />
+
+            <Image
+                x:Name="RecipeImage"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="false" />
+
             <Entry
                 x:Name="nombre"
                 MaxLength="40"
