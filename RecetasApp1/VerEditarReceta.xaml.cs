@@ -6,37 +6,37 @@ using System.Collections.ObjectModel;
 namespace RecetasApp1;
 
 public partial class VerEditarReceta : ContentPage
-{    
+{
     private Receta receta;
     private int numeroComensales;
     private int tiempoCoccion;
     private ObservableCollection<IngredienteClass> ingredientes = new ObservableCollection<IngredienteClass>();
 
     public VerEditarReceta(Receta recetaSeleccionada)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         EditButton();
 
-		receta = recetaSeleccionada;
+        receta = recetaSeleccionada;
         BindingContext = recetaSeleccionada;   //Es necesario para poder hacer el binding en el código xaml  
-		Title = recetaSeleccionada.Name.ToUpper();
+        Title = recetaSeleccionada.Name.ToUpper();
         CargarIngredientes();
         listaIngredientes.ItemsSource = ingredientes;
     }
 
-	private void Editar()
-	{
-        SaveButton();		
+    private void Editar()
+    {
+        SaveButton();
 
         SoloLectura(false);
         MostrarMenuEdicion(true);
-	}
+    }
 
-	private void Actualizar()
-	{
+    private void Actualizar()
+    {
         if (!string.IsNullOrWhiteSpace(nombre.Text) && !string.IsNullOrWhiteSpace(instrucciones.Text))
-        { 
+        {
             try
             {
                 var db = new SQLiteService().GetConnection();
@@ -48,15 +48,15 @@ public partial class VerEditarReceta : ContentPage
                 receta.Time = tiempoCoccion;
 
                 db.Update(receta);
-                
+
                 //Primero elimino los ingredientes anteriores y despues inserto los nuevos
                 var oldIngredientes = db.Table<Ingrediente>().Where(i => i.RecetaId == receta.IdReceta).ToList();
-                
-                foreach( var item in oldIngredientes)
+
+                foreach (var item in oldIngredientes)
                 {
                     db.Delete(item);
                 }
-                
+
                 foreach (var item in ingredientes)
                 {
                     Ingrediente newIngrediente = new Ingrediente
@@ -90,8 +90,8 @@ public partial class VerEditarReceta : ContentPage
         else
         {
             ShowMessage("Introduce todos los datos", 3000);
-        } 
-	}
+        }
+    }
 
     //Método para mostrar mensajes en pantalla de manera temporal
     private async void ShowMessage(string message, int durationMilliseconds)
@@ -116,9 +116,10 @@ public partial class VerEditarReceta : ContentPage
         instrucciones.IsReadOnly = readable;
     }
 
-    private void MostrarMenuEdicion(bool edit) 
+    private void MostrarMenuEdicion(bool edit)
     {
-        categoriaLabel.IsVisible = !edit;
+        modoEdicion.IsVisible = edit;
+
         categoriaEntry.IsVisible = !edit;
         categoria.IsVisible = edit;
 
@@ -170,7 +171,7 @@ public partial class VerEditarReceta : ContentPage
 
         var listaIngredientes = db.Table<Ingrediente>().Where(i => i.RecetaId == receta.IdReceta).ToList();
 
-        foreach( var i in listaIngredientes ) 
+        foreach (var i in listaIngredientes)
         {
             ingredientes.Add(new IngredienteClass
             {

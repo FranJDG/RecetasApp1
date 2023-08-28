@@ -2,7 +2,6 @@
 using RecetasApp1.Data;
 using RecetasApp1.Models;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Text.RegularExpressions;
 //using static Android.Webkit.ConsoleMessage;
 
@@ -15,8 +14,8 @@ public partial class NuevaRecetaPage : ContentPage
     private int numeroComensales = 4;
 
     public NuevaRecetaPage()
-	{
-		InitializeComponent();		
+    {
+        InitializeComponent();
 
         // Crear los botones que deseas agregar a la barra de navegación
         var saveButton = new ToolbarItem("Guardar", "guardar.png", () =>
@@ -28,11 +27,11 @@ public partial class NuevaRecetaPage : ContentPage
         ToolbarItems.Add(saveButton);
 
         listaIngredientes.ItemsSource = ingredientes;
-    }    
+    }
 
     private void Guardar()
-    {        
-        if (!string.IsNullOrWhiteSpace(nombre.Text) && !string.IsNullOrWhiteSpace(instrucciones.Text) 
+    {
+        if (!string.IsNullOrWhiteSpace(nombre.Text) && !string.IsNullOrWhiteSpace(instrucciones.Text)
             && categoria.SelectedItem != null)
         {
             try
@@ -47,17 +46,18 @@ public partial class NuevaRecetaPage : ContentPage
                     Instructions = instrucciones.Text.Trim()
                 };
 
-                db.CreateTable<Receta>();                
+                db.CreateTable<Receta>();
                 db.Insert(newReceta);
 
                 db.CreateTable<Ingrediente>();
                 foreach (var item in ingredientes)
                 {
-                    Ingrediente newIngrediente = new Ingrediente{ 
+                    Ingrediente newIngrediente = new Ingrediente
+                    {
                         NameI = item.Nombre,
                         Quantity = item.Cantidad,
                         Unit = item.Medida,
-                        RecetaId = newReceta.IdReceta                        
+                        RecetaId = newReceta.IdReceta
                     };
                     db.Insert(newIngrediente);
                 }
@@ -71,7 +71,7 @@ public partial class NuevaRecetaPage : ContentPage
 
                 DisplayAlert("Error", ex.Message, "Ok");
             }
-                               
+
         }
         else
         {
@@ -118,10 +118,10 @@ public partial class NuevaRecetaPage : ContentPage
 
 
     private void btnAgregarIngrediente_Clicked(object sender, EventArgs e)
-    {     
+    {
         if (!string.IsNullOrWhiteSpace(ingrediente.Text) && !string.IsNullOrEmpty(cantidad.Text)
             && medida.SelectedItem != null)
-        {  
+        {
             ingredientes.Add(new IngredienteClass
             {
                 Nombre = ingrediente.Text.ToUpper().Trim(),
@@ -201,7 +201,7 @@ public partial class NuevaRecetaPage : ContentPage
         int minutos = newStep * step;
         ((Slider)sender).Value = minutos;
 
-        tiempoCoccion = minutos;        
+        tiempoCoccion = minutos;
     }
 
     private void slider_ValueChangedUno(object sender, ValueChangedEventArgs e)
