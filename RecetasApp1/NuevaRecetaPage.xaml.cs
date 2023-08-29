@@ -49,7 +49,7 @@ public partial class NuevaRecetaPage : ContentPage
                 if (!string.IsNullOrEmpty(_tempImagePath))
                 {
                     newReceta.ImagePath = SaveImage(_tempImagePath);
-                }                
+                }
 
                 db.CreateTable<Receta>();
                 db.Insert(newReceta);
@@ -90,7 +90,7 @@ public partial class NuevaRecetaPage : ContentPage
         categoria.SelectedItem = string.Empty;
         sliderComensales.Value = 4;
         sliderMinutos.Value = 30;
-        instrucciones.Text = string.Empty;        
+        instrucciones.Text = string.Empty;
         AgregarImagen.Source = "agregar_imagen.png";
     }
 
@@ -267,8 +267,8 @@ public partial class NuevaRecetaPage : ContentPage
     {
         var result = await MediaPicker.CapturePhotoAsync();
         if (result != null)
-        {            
-            AgregarImagen.Source = result.FullPath;            
+        {
+            AgregarImagen.Source = result.FullPath;
             _tempImagePath = result.FullPath;
         }
     }
@@ -277,7 +277,7 @@ public partial class NuevaRecetaPage : ContentPage
     {
         var result = await MediaPicker.PickPhotoAsync();
         if (result != null)
-        {            
+        {
             AgregarImagen.Source = result.FullPath;
             _tempImagePath = result.FullPath;
         }

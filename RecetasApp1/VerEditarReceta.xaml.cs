@@ -25,7 +25,7 @@ public partial class VerEditarReceta : ContentPage
         listaIngredientes.ItemsSource = ingredientes;
         _tempImagePath = recetaSeleccionada.ImagePath;
 
-        if(_tempImagePath == null)
+        if (_tempImagePath == null)
         {
             AgregarImagen.Source = "agregar_imagen.png";
         }
@@ -55,7 +55,12 @@ public partial class VerEditarReceta : ContentPage
 
                 if (!string.IsNullOrEmpty(_tempImagePath))
                 {
-                    receta.ImagePath = SaveImage(_tempImagePath);
+                    if (receta.ImagePath != _tempImagePath)
+                    {
+                        DeleteImage(receta.ImagePath);
+                        receta.ImagePath = SaveImage(_tempImagePath);
+                    }
+
                 }
 
                 db.Update(receta);
@@ -381,5 +386,13 @@ public partial class VerEditarReceta : ContentPage
         File.Copy(sourcePath, newImagePath);
 
         return newImagePath;
+    }
+
+    private void DeleteImage(string imagePath)
+    {
+        if (File.Exists(imagePath))
+        {
+            File.Delete(imagePath);
+        }
     }
 }

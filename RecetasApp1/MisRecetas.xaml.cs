@@ -8,8 +8,8 @@ namespace RecetasApp1;
 public partial class MisRecetas : ContentPage
 {
     public MisRecetas()
-	{
-		InitializeComponent();       
+    {
+        InitializeComponent();
 
         MostrarRecetas();
     }
@@ -41,26 +41,35 @@ public partial class MisRecetas : ContentPage
         var item = (Receta)(sender as MenuItem).CommandParameter;
 
         if (await DisplayAlert("Confirmación", $"¿Seguro que desea eliminar '{item.Name.ToUpper()}'?", "Si", "No"))
-        {            
+        {
             try
             {
                 var db = new SQLiteService().GetConnection();
                 db.Delete<Receta>(item.IdReceta);
+                DeleteImage(item.ImagePath);
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "Ok");
-            }                              
-                
-            MostrarRecetas();  
+            }
+
+            MostrarRecetas();
         }
     }
 
     private async void listaRecetas_ItemTapped(object sender, ItemTappedEventArgs e)
-    { 
+    {
         if (e.Item is Receta recetaSeleccionada)
         {
-            await Navigation.PushAsync(new VerEditarReceta(recetaSeleccionada));            
+            await Navigation.PushAsync(new VerEditarReceta(recetaSeleccionada));
+        }
+    }
+
+    private void DeleteImage(string imagePath)
+    {
+        if (File.Exists(imagePath))
+        {
+            File.Delete(imagePath);
         }
     }
 }
