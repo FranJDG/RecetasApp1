@@ -1,7 +1,6 @@
 using RecetasApp1.Data;
 using RecetasApp1.Models;
 
-
 namespace RecetasApp1;
 
 public partial class MisRecetas : ContentPage
@@ -25,7 +24,7 @@ public partial class MisRecetas : ContentPage
         try
         {
             var db = new SQLiteService().GetConnection();
-            listaRecetas.ItemsSource = db.Table<Receta>().ToList();
+            listaRecetas.ItemsSource = db.Table<Receta>().OrderBy(r => r.Name).ToList();
         }
         catch (Exception ex)
         {

@@ -8,7 +8,7 @@
     <ScrollView>
         <ListView
             x:Name="listaRecetas"
-            Margin="30"
+            Margin="30"            
             ItemTapped="listaRecetas_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -22,15 +22,36 @@
                                 IsDestructive="True"
                                 Text="Eliminar" />
                         </ViewCell.ContextActions>
-                        <Grid>
+                        <Grid RowSpacing="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
                             <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                FontAttributes="Bold"
                                 Text="{Binding Name}"
                                 TextTransform="Uppercase"
                                 VerticalOptions="Center" />
+
+                            <Label
+                                FontSize="Micro"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                FontAttributes="Italic"
+                                Text="{Binding Category}"                                
+                                VerticalOptions="Center" />
+
+                            <Image
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Source="{Binding ImagePath}" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
