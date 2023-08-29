@@ -32,8 +32,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
+		<MauiImage Include="Resources\AppIcon\appicon.svg" IsAppIcon="True"></MauiImage>
 
 		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg"></MauiSplashScreen>
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -47,18 +49,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\AppIcon\appicon.svg" />
-	  <None Remove="Resources\Images\agregar_imagen.png" />
-	  <None Remove="Resources\Images\editar.png" />
-	  <None Remove="Resources\Images\eliminar.png" />
-	  <None Remove="Resources\Images\guardar.png" />
-	  <None Remove="Resources\Images\imagen.png" />
-	  <None Remove="Resources\Images\info.png" />
-	  <None Remove="Resources\Images\undo.png" />
+		<None Remove="Resources\AppIcon\appicon.svg" />
+		<None Remove="Resources\Images\agregar_imagen.png" />
+		<None Remove="Resources\Images\editar.png" />
+		<None Remove="Resources\Images\eliminar.png" />
+		<None Remove="Resources\Images\guardar.png" />
+		<None Remove="Resources\Images\imagen.png" />
+		<None Remove="Resources\Images\info.png" />
+		<None Remove="Resources\Images\undo.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiIcon Include="Resources\AppIcon\appicon.svg" color="#FF0000" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" color="#FF0000" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -68,15 +70,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MisRecetas.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="NuevaRecetaPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="VerEditarReceta.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="MisRecetas.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="NuevaRecetaPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="VerEditarReceta.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

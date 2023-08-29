@@ -1,9 +1,8 @@
-//using Android.App;
 using RecetasApp1.Data;
 using RecetasApp1.Models;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-//using static Android.Webkit.ConsoleMessage;
+
 
 namespace RecetasApp1;
 
