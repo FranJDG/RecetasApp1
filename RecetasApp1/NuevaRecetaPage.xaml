@@ -1,18 +1,205 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RecetasApp1.NuevaRecetaPage"
-             Title="Nueva receta">  
-    
-    <ScrollView>
-        <VerticalStackLayout Spacing="25" Padding="30" >
-            <Label Text="Introduce los siguientes datos para agregar una nueva receta:" VerticalOptions="Center" HorizontalOptions="Center" />
+<ContentPage
+    x:Class="RecetasApp1.NuevaRecetaPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Nueva receta">
 
-            <Label x:Name="mensaje" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="false" FontSize="Subtitle"/>
-            
-            <Entry x:Name="nombre" Placeholder="Nombre de la receta" MaxLength="40"></Entry>
-            
-            <Editor x:Name="elavoracion" Placeholder="Elavoración" AutoSize="TextChanges" MaxLength="500"></Editor>
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25">
+
+            <Label
+                x:Name="mensaje"
+                FontSize="Subtitle"
+                HorizontalOptions="Center"
+                IsVisible="false"
+                VerticalOptions="Center" />
+
+            <ImageButton
+                x:Name="AgregarImagen"
+                Clicked="btnFoto_Clicked"
+                HorizontalOptions="FillAndExpand"
+                MaximumHeightRequest="200"
+                Source="agregar_imagen.png" />
+
+            <Entry
+                x:Name="nombre"
+                MaxLength="40"
+                Placeholder="Nombre de la receta" />
+
+            <Picker
+                x:Name="categoria"
+                Title="Categoría"
+                HorizontalOptions="FillAndExpand">
+                <!--  Aquí agregar opciones de categoría  -->
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Snacks y aperitivos</x:String>
+                        <x:String>Entrante</x:String>
+                        <x:String>Plato principal</x:String>
+                        <x:String>Sopas y guisos</x:String>
+                        <x:String>Ensaladas</x:String>
+                        <x:String>Postre</x:String>
+                        <x:String>Bebidas y cócteles</x:String>
+                        <x:String>Desayuno</x:String>
+                        <x:String>Almuerzo</x:String>
+                        <x:String>Merienda</x:String>
+                        <x:String>Cena</x:String>
+                        <x:String>Internacional</x:String>
+                        <x:String>Ocasiones especiales</x:String>
+                        <x:String>Panadería y repostería</x:String>
+                        <x:String>Comida saludable</x:String>
+                        <x:String>Vegana</x:String>
+                        <x:String>Comida rápida</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label FontAttributes="Bold" Text="{Binding Value, Source={x:Reference sliderComensales}, StringFormat='Número de comensales: {0}'}" />
+            <Slider
+                x:Name="sliderComensales"
+                Maximum="20"
+                MaximumTrackColor="blue"
+                MinimumTrackColor="Green"
+                ThumbColor="Green"
+                ValueChanged="slider_ValueChangedUno"
+                Value="4" />
+
+            <Label FontAttributes="Bold" Text="{Binding Value, Source={x:Reference sliderMinutos}, StringFormat='Tiempo de preparación: {0} minutos'}" />
+            <Slider
+                x:Name="sliderMinutos"
+                Maximum="240"
+                MaximumTrackColor="blue"
+                MinimumTrackColor="Green"
+                ThumbColor="Green"
+                ValueChanged="slider_ValueChangedCinco"
+                Value="30" />
+
+            <Editor
+                x:Name="instrucciones"
+                AutoSize="TextChanges"
+                MaxLength="500"
+                Placeholder="Instrucciones" />
+
+            <Label FontAttributes="Bold" Text="Ingredientes:" />
+            <Label
+                x:Name="mensaje2"
+                FontSize="Subtitle"
+                HorizontalOptions="Center"
+                IsVisible="false"
+                VerticalOptions="Center" />
+            <Entry
+                x:Name="ingrediente"
+                MaxLength="30"
+                Placeholder="Ingrediente" />
+
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Entry
+                    x:Name="cantidad"
+                    Grid.Column="0"
+                    Keyboard="Numeric"
+                    MaxLength="15"
+                    Placeholder="Cantidad"
+                    TextChanged="cantidad_TextChanged" />
+                <Picker
+                    x:Name="medida"
+                    Title="Unidad"
+                    Grid.Column="1"
+                    HorizontalOptions="FillAndExpand">
+                    <!--  Aquí agregar opciones medida  -->
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Gramos</x:String>
+                            <x:String>Litros</x:String>
+                            <x:String>Cucharadas</x:String>
+                            <x:String>Unidades</x:String>
+                            <x:String>Vasos</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Grid>
+
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="btnAgregarIngrediente"
+                    Grid.Column="0"
+                    Clicked="btnAgregarIngrediente_Clicked"
+                    Text="Agregar" />
+                <Button
+                    x:Name="btnEliminarIngrediente"
+                    Grid.Column="1"
+                    Clicked="btnEliminarIngrediente_Clicked"
+                    Text="Eliminar" />
+            </Grid>
+
+            <ListView
+                x:Name="listaIngredientes"
+                HasUnevenRows="True"
+                HeightRequest="200">
+                <ListView.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="120" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="0"
+                            FontAttributes="Italic"
+                            HorizontalTextAlignment="Center"
+                            Text="Ingrediente" />
+                        <Label
+                            Grid.Column="1"
+                            FontAttributes="Italic"
+                            HorizontalTextAlignment="Center"
+                            Text="Cantidad" />
+                        <Label
+                            Grid.Column="2"
+                            FontAttributes="Italic"
+                            HorizontalTextAlignment="Center"
+                            Text="Unidad" />
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="120" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                    Grid.Column="0"
+                                    FontSize="Default"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Nombre}" />
+                                <Label
+                                    Grid.Column="1"
+                                    FontSize="Default"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Cantidad}" />
+                                <Label
+                                    Grid.Column="2"
+                                    FontSize="Default"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Medida}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </VerticalStackLayout>
-    </ScrollView>    
+    </ScrollView>
 </ContentPage>

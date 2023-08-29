@@ -1,46 +1,40 @@
 using Microsoft.Data.Sqlite;
 using RecetasApp1.Data;
 using RecetasApp1.Models;
-using RecetasApp1.ViewModels;
 //using static Android.Content.ClipData;
 
 namespace RecetasApp1;
 
 public partial class MisRecetas : ContentPage
 {
-    private readonly RecetasViewModel _recetasViewModel;    
-
-    public MisRecetas(RecetasViewModel recetasViewModel)
+    public MisRecetas()
 	{
-		InitializeComponent();
+		InitializeComponent();       
 
-        _recetasViewModel = recetasViewModel;
-        BindingContext = _recetasViewModel;
-
-        //MostrarRecetas();
+        MostrarRecetas();
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _recetasViewModel.CargarRecetas(); // Recargar la colección de recetas
+        MostrarRecetas();
     }
 
 
-    //private void MostrarRecetas()
-    //{
-    //    try
-    //    {
-    //        var db = new SQLiteService().GetConnection();
-    //        listaRecetas.ItemsSource = db.Table<Receta>().ToList();
-    //    }
-    //    catch (Exception ex)
-    //    {
+    private void MostrarRecetas()
+    {
+        try
+        {
+            var db = new SQLiteService().GetConnection();
+            listaRecetas.ItemsSource = db.Table<Receta>().ToList();
+        }
+        catch (Exception ex)
+        {
 
-    //        DisplayAlert("Error", ex.Message, "Ok");
-    //    }
+            DisplayAlert("Error", ex.Message, "Ok");
+        }
 
-    //}
+    }
 
     private async void BtnDelete_Clicked(object sender, EventArgs e)
     {
@@ -58,7 +52,7 @@ public partial class MisRecetas : ContentPage
                 await DisplayAlert("Error", ex.Message, "Ok");
             }                              
                 
-            //MostrarRecetas();  
+            MostrarRecetas();  
         }
     }
 
@@ -66,7 +60,7 @@ public partial class MisRecetas : ContentPage
     { 
         if (e.Item is Receta recetaSeleccionada)
         {
-            await Navigation.PushAsync(new VerEditarReceta(recetaSeleccionada, _recetasViewModel));            
+            await Navigation.PushAsync(new VerEditarReceta(recetaSeleccionada));            
         }
     }
 }

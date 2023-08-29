@@ -1,18 +1,21 @@
 ﻿using RecetasApp1.Data;
 using RecetasApp1.Models;
-using RecetasApp1.ViewModels;
 
 namespace RecetasApp1
 {
     public partial class MainPage : ContentPage
-    {
-        private readonly RecetasViewModel _recetasViewModel;
-
+    {   
         public MainPage()
         {
-            InitializeComponent();
-            _recetasViewModel = new RecetasViewModel();
-            BindingContext = _recetasViewModel;
+            InitializeComponent();            
+
+            var infoButton = new ToolbarItem("Info", "info.png", () =>
+            {
+                Info();
+            });
+
+            ToolbarItems.Add(infoButton);
+
         }
 
         private async void NuevaReceta_Clicked(object sender, EventArgs e)
@@ -34,7 +37,7 @@ namespace RecetasApp1
                 var item = db.Table<Receta>().Any();
                 if (item)
                 {
-                    await Navigation.PushAsync(new MisRecetas(_recetasViewModel));
+                    await Navigation.PushAsync(new MisRecetas());
                 }
                 else
                 {
@@ -46,6 +49,12 @@ namespace RecetasApp1
                 await DisplayAlert("", "Debes crear al menos una receta.", "Ok");
             }
 
+        }
+
+        private void Info()
+        {
+            DisplayAlert("", "Recetas\n\nCreado con .NET MAUI\n\nv1.0    25/08/2023\n\nFran Díaz", "Ok");
+            
         }
     }
 }
