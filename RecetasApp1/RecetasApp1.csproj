@@ -49,6 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\agregar_imagen.png" />
 	  <None Remove="Resources\Images\editar.png" />
 	  <None Remove="Resources\Images\eliminar.png" />
 	  <None Remove="Resources\Images\guardar.png" />

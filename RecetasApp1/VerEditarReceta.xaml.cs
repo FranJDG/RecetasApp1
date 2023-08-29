@@ -1,8 +1,7 @@
-using RecetasApp1.Models;
 using RecetasApp1.Data;
-using System.Text.RegularExpressions;
+using RecetasApp1.Models;
 using System.Collections.ObjectModel;
-using Android.Icu.Text;
+using System.Text.RegularExpressions;
 
 namespace RecetasApp1;
 
@@ -25,6 +24,11 @@ public partial class VerEditarReceta : ContentPage
         CargarIngredientes();
         listaIngredientes.ItemsSource = ingredientes;
         _tempImagePath = recetaSeleccionada.ImagePath;
+
+        if(_tempImagePath == null)
+        {
+            AgregarImagen.Source = "agregar_imagen.png";
+        }
     }
 
     private void Editar()
@@ -127,7 +131,7 @@ public partial class VerEditarReceta : ContentPage
     {
         modoEdicion.IsVisible = edit;
 
-        RecipeImage.IsEnabled = edit;
+        AgregarImagen.IsEnabled = edit;
 
         categoriaEntry.IsVisible = !edit;
         categoria.IsVisible = edit;
@@ -312,9 +316,9 @@ public partial class VerEditarReceta : ContentPage
 
     private async void btnFoto_Clicked(object sender, EventArgs e)
     {
-        var action = await DisplayActionSheet("Seleccionar foto", "Cancelar", null, "Tomar foto", "Elegir de la galería");
+        var action = await DisplayActionSheet("Seleccionar foto", "Cancelar", null, "Hacer foto", "Elegir de la galería");
 
-        if (action == "Tomar foto")
+        if (action == "Hacer foto")
         {
             await TakePhoto();
         }
@@ -329,7 +333,7 @@ public partial class VerEditarReceta : ContentPage
         var result = await MediaPicker.CapturePhotoAsync();
         if (result != null)
         {
-            RecipeImage.Source = result.FullPath;
+            AgregarImagen.Source = result.FullPath;
             _tempImagePath = result.FullPath;
         }
     }
@@ -339,7 +343,7 @@ public partial class VerEditarReceta : ContentPage
         var result = await MediaPicker.PickPhotoAsync();
         if (result != null)
         {
-            RecipeImage.Source = result.FullPath;
+            AgregarImagen.Source = result.FullPath;
             _tempImagePath = result.FullPath;
         }
     }

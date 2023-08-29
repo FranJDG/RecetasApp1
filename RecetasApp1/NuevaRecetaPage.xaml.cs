@@ -49,7 +49,7 @@ public partial class NuevaRecetaPage : ContentPage
                 if (!string.IsNullOrEmpty(_tempImagePath))
                 {
                     newReceta.ImagePath = SaveImage(_tempImagePath);
-                }
+                }                
 
                 db.CreateTable<Receta>();
                 db.Insert(newReceta);
@@ -90,8 +90,8 @@ public partial class NuevaRecetaPage : ContentPage
         categoria.SelectedItem = string.Empty;
         sliderComensales.Value = 4;
         sliderMinutos.Value = 30;
-        instrucciones.Text = string.Empty;
-        RecipeImage.IsVisible = false;
+        instrucciones.Text = string.Empty;        
+        AgregarImagen.Source = "agregar_imagen.png";
     }
 
     //Método para mostrar mensajes en pantalla de manera temporal
@@ -227,9 +227,9 @@ public partial class NuevaRecetaPage : ContentPage
 
     private async void btnFoto_Clicked(object sender, EventArgs e)
     {
-        var action = await DisplayActionSheet("Seleccionar foto", "Cancelar", null, "Tomar foto", "Elegir de la galería");
+        var action = await DisplayActionSheet("Seleccionar foto", "Cancelar", null, "Hacer foto", "Elegir de la galería");
 
-        if (action == "Tomar foto")
+        if (action == "Hacer foto")
         {
             await TakePhoto();
         }
@@ -243,9 +243,8 @@ public partial class NuevaRecetaPage : ContentPage
     {
         var result = await MediaPicker.CapturePhotoAsync();
         if (result != null)
-        {
-            RecipeImage.Source = result.FullPath;
-            RecipeImage.IsVisible = true;
+        {            
+            AgregarImagen.Source = result.FullPath;            
             _tempImagePath = result.FullPath;
         }
     }
@@ -254,9 +253,8 @@ public partial class NuevaRecetaPage : ContentPage
     {
         var result = await MediaPicker.PickPhotoAsync();
         if (result != null)
-        {
-            RecipeImage.Source = result.FullPath;
-            RecipeImage.IsVisible = true;
+        {            
+            AgregarImagen.Source = result.FullPath;
             _tempImagePath = result.FullPath;
         }
     }

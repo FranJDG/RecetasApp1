@@ -7,11 +7,6 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="25">
-            <Label
-                FontAttributes="Bold"
-                HorizontalOptions="Center"
-                Text="Introduce los siguientes datos para agregar una nueva receta:"
-                VerticalOptions="Center" />
 
             <Label
                 x:Name="mensaje"
@@ -20,15 +15,12 @@
                 IsVisible="false"
                 VerticalOptions="Center" />
 
-            <Button
-                x:Name="hacerFoto"
+            <ImageButton
+                x:Name="AgregarImagen"
                 Clicked="btnFoto_Clicked"
-                Text="Agregar Foto" />
-
-            <Image
-                x:Name="RecipeImage"
                 HorizontalOptions="FillAndExpand"
-                IsVisible="false" />
+                MaximumHeightRequest="200"
+                Source="agregar_imagen.png" />
 
             <Entry
                 x:Name="nombre"

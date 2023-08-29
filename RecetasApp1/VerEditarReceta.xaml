@@ -22,10 +22,10 @@
                 VerticalOptions="Center" />
 
             <ImageButton
-                x:Name="RecipeImage"
+                x:Name="AgregarImagen"
                 Clicked="btnFoto_Clicked"
                 HorizontalOptions="FillAndExpand"
-                IsEnabled="False"
+                IsEnabled="False"                
                 Opacity="100"
                 Source="{Binding ImagePath}" />
 
