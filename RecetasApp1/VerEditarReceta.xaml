@@ -25,7 +25,7 @@
                 x:Name="AgregarImagen"
                 Clicked="btnFoto_Clicked"
                 HorizontalOptions="FillAndExpand"
-                IsEnabled="False"                
+                IsEnabled="False"
                 Opacity="100"
                 Source="{Binding ImagePath}" />
 
@@ -129,7 +129,6 @@
                 x:Name="instrucciones"
                 AutoSize="TextChanges"
                 IsReadOnly="True"
-                MaxLength="500"
                 Placeholder="Instrucciones"
                 Text="{Binding Instructions}" />
 

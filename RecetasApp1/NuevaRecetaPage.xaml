@@ -78,7 +78,6 @@
             <Editor
                 x:Name="instrucciones"
                 AutoSize="TextChanges"
-                MaxLength="500"
                 Placeholder="Instrucciones" />
 
             <Label FontAttributes="Bold" Text="Ingredientes:" />

@@ -17,14 +17,9 @@ namespace RecetasApp1.Models
         public string Name { get; set; }
         public string Category { get; set; }
         public int Diners { get; set; }
-        public int Time { get; set; }
-        [MaxLength(500)]
+        public int Time { get; set; }        
         public string Instructions { get; set; }
-        public string ImagePath { get; set; }
-
-        //[Ignore] //Ignorar en la base de datos
-        //[InverseProperty("Receta")] // Esto indica la relación con Ingredientes
-        //public List<Ingrediente> Ingredientes { get; set; }
+        public string ImagePath { get; set; }        
     }
 
     [SQLite.Table("Ingrediente")]
@@ -41,9 +36,6 @@ namespace RecetasApp1.Models
 
         [ForeignKey("Receta")]
         public int RecetaId { get; set; }
-
-        //[Ignore]
-        //public Receta Receta { get; set; } // Navegación a la receta asociada
     }
 
 }
