@@ -1,16 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RecetasApp1.MainPage"
-             Title="Recetas">
+<ContentPage
+    x:Class="RecetasApp1.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Recetas">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
-            
-            <Label Text="¡Bienvenido a la App para guardar tus recetas!" VerticalOptions="Center" HorizontalOptions="Center" />   
-            
-            <Button x:Name="NuevaReceta" Text="Nueva receta" Clicked="NuevaReceta_Clicked"></Button>
-            <Button x:Name="MisRecetas" Text="Mis recetas" Clicked="MisRecetas_Clicked"></Button>
+        <VerticalStackLayout
+            Padding="30"
+            Spacing="50"
+            VerticalOptions="Start">
+
+            <Image Source="gastronomia.jpeg" />
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Text="¡Bienvenido a la App para guardar tus recetas!"
+                VerticalOptions="Center" />
+
+            <Button
+                x:Name="NuevaReceta"
+                Clicked="NuevaReceta_Clicked"
+                FontAttributes="Bold"
+                FontSize="Subtitle"
+                Text="Nueva receta" />
+
+            <Button
+                x:Name="MisRecetas"
+                Clicked="MisRecetas_Clicked"
+                FontAttributes="Bold"
+                FontSize="Subtitle"
+                Text="Mis recetas" />
+
         </VerticalStackLayout>
     </ScrollView>
 

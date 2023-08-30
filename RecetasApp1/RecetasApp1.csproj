@@ -32,7 +32,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="White"/>
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="White" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\recetasplash.svg"></MauiSplashScreen>
@@ -50,11 +50,15 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Images\agregar_imagen.png" />
+		<None Remove="Resources\Images\categoria.svg" />
+		<None Remove="Resources\Images\comensales.svg" />
 		<None Remove="Resources\Images\editar.png" />
 		<None Remove="Resources\Images\eliminar.png" />
+		<None Remove="Resources\Images\gastronomia.jpeg" />
 		<None Remove="Resources\Images\guardar.png" />
 		<None Remove="Resources\Images\imagen.png" />
 		<None Remove="Resources\Images\info.png" />
+		<None Remove="Resources\Images\tiempo.svg" />
 		<None Remove="Resources\Images\undo.png" />
 	</ItemGroup>
 
