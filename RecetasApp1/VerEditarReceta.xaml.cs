@@ -89,9 +89,10 @@ public partial class VerEditarReceta : ContentPage
                 MostrarMenuEdicion(false);
 
                 Title = receta.Name.ToUpper();
-                categoriaEntry.Text = receta.Category;
-                comensalesEntry.Text = receta.Diners.ToString();
-                tiempoEntry.Text = receta.Time.ToString();
+                nombreDato.Text = receta.Name;
+                categoriaDato.Text = receta.Category;
+                comensalesDato.Text = receta.Diners.ToString();
+                tiempoDato.Text = receta.Time.ToString(); 
 
                 EditButton();
 
@@ -127,8 +128,7 @@ public partial class VerEditarReceta : ContentPage
     }
 
     private void SoloLectura(bool readable)
-    {
-        nombre.IsReadOnly = readable;
+    {        
         instrucciones.IsReadOnly = readable;
     }
 
@@ -138,19 +138,19 @@ public partial class VerEditarReceta : ContentPage
 
         AgregarImagen.IsEnabled = edit;
 
-        categoriaEntry.IsVisible = !edit;
-        categoria.IsVisible = edit;
+        datosReceta.IsVisible = !edit;
 
-        comensalesLabel.IsVisible = !edit;
-        comensalesEntry.IsVisible = !edit;
+        nombre.IsVisible = edit;
+        
+        categoria.IsVisible = edit;
+        
         numComensales.IsVisible = edit;
         sliderComensales.IsVisible = edit;
-
-        tiempoLabel.IsVisible = !edit;
-        tiempoEntry.IsVisible = !edit;
+        
         tiempoPreparacion.IsVisible = edit;
         sliderMinutos.IsVisible = edit;
 
+        ingredientesLabel.IsVisible = edit;
         ingrediente.IsVisible = edit;
         cantidadMedidaGrid.IsVisible = edit;
         ingredientesBtn.IsVisible = edit;

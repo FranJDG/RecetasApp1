@@ -34,19 +34,19 @@
             <StackLayout x:Name="datosReceta" Spacing="5">
                 <HorizontalStackLayout Spacing="20">
                     <Image BackgroundColor="White" Source="plato.png" />
-                    <Label Text="{Binding Name}" />
+                    <Label x:Name="nombreDato" Text="{Binding Name}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Image BackgroundColor="White" Source="categoria.png" />
-                    <Label Text="{Binding Category}" />
+                    <Label x:Name="categoriaDato" Text="{Binding Category}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Image BackgroundColor="White" Source="comensales.png" />
-                    <Label Text="{Binding Diners, StringFormat='{0} personas'}" />
+                    <Label x:Name="comensalesDato" Text="{Binding Diners, StringFormat='{0} personas'}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Image BackgroundColor="White" Source="tiempo.png" />
-                    <Label Text="{Binding Time, StringFormat='{0} minutos'}" />
+                    <Label x:Name="tiempoDato" Text="{Binding Time, StringFormat='{0} minutos'}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Image BackgroundColor="White" Source="instrucciones.png" />
@@ -56,23 +56,13 @@
 
             <!--  Fin nuevo código de presentación de receta  -->
 
-            <!--<Label FontAttributes="Bold" Text="Nombre:" />-->
             <Entry
                 x:Name="nombre"
-                IsReadOnly="True"
+                IsVisible="false"
                 MaxLength="40"
                 Placeholder="Nombre de la receta"
                 Text="{Binding Name}" />
 
-            <!--<Label
-                x:Name="categoriaLabel"
-                FontAttributes="Bold"
-                Text="Categoría:" />-->
-            <Entry
-                x:Name="categoriaEntry"
-                IsReadOnly="True"
-                Placeholder="Categoría"
-                Text="{Binding Category}" />
             <Picker
                 x:Name="categoria"
                 Title="Categoría"
@@ -104,15 +94,6 @@
             </Picker>
 
             <Label
-                x:Name="comensalesLabel"
-                FontAttributes="Bold"
-                Text="Número de comensales:" />
-            <Entry
-                x:Name="comensalesEntry"
-                IsReadOnly="True"
-                Placeholder="Comensales"
-                Text="{Binding Diners}" />
-            <Label
                 x:Name="numComensales"
                 FontAttributes="Bold"
                 IsVisible="false"
@@ -128,15 +109,6 @@
                 Value="{Binding Diners}" />
 
             <Label
-                x:Name="tiempoLabel"
-                FontAttributes="Bold"
-                Text="Tiempo de preparación:" />
-            <Entry
-                x:Name="tiempoEntry"
-                IsReadOnly="True"
-                Placeholder="Tiempo"
-                Text="{Binding Time}" />
-            <Label
                 x:Name="tiempoPreparacion"
                 FontAttributes="Bold"
                 IsVisible="false"
@@ -151,7 +123,6 @@
                 ValueChanged="slider_ValueChangedCinco"
                 Value="{Binding Time}" />
 
-            <!--<Label FontAttributes="Bold" Text="Instrucciones:" />-->
             <Editor
                 x:Name="instrucciones"
                 AutoSize="TextChanges"
@@ -159,7 +130,11 @@
                 Placeholder="Instrucciones"
                 Text="{Binding Instructions}" />
 
-            <!--<Label FontAttributes="Bold" Text="Ingredientes:" />-->
+            <Label
+                x:Name="ingredientesLabel"
+                FontAttributes="Bold"
+                IsVisible="false"
+                Text="Ingredientes:" />
 
             <Label
                 x:Name="mensaje2"
