@@ -6,57 +6,64 @@
     Title="Mis recetas">
 
     <ScrollView>
-        <ListView
-            x:Name="listaRecetas"
-            Margin="30"            
-            ItemTapped="listaRecetas_ItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem
-                                x:Name="BtnDelete"
-                                Clicked="BtnDelete_Clicked"
-                                CommandParameter="{Binding .}"
-                                IconImageSource="eliminar.png"
-                                IsDestructive="True"
-                                Text="Eliminar" />
-                        </ViewCell.ContextActions>
-                        <Grid RowSpacing="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+        <StackLayout Margin="30" Spacing="20">
+            <Entry x:Name="searchEntry" Placeholder="Buscar por nombre o categoría" TextChanged="SearchEntry_TextChanged"/>
 
-                            <Label
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                FontAttributes="Bold"
-                                Text="{Binding Name}"
-                                TextTransform="Uppercase"
-                                VerticalOptions="Center" />
+            <ListView
+                x:Name="listaRecetas"
+                ItemTapped="listaRecetas_ItemTapped"
+                RowHeight="100">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    x:Name="BtnDelete"
+                                    Clicked="BtnDelete_Clicked"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource="eliminar.png"
+                                    IsDestructive="True"
+                                    Text="Eliminar" />
+                            </ViewCell.ContextActions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="5" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                            <Label
-                                FontSize="Micro"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                FontAttributes="Italic"
-                                Text="{Binding Category}"                                
-                                VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    Text="{Binding Name}"
+                                    TextTransform="Uppercase"
+                                    VerticalOptions="Center" />
 
-                            <Image
-                                Grid.RowSpan="2"
-                                Grid.Column="1"
-                                Source="{Binding ImagePath}" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    FontAttributes="Italic"
+                                    FontSize="Micro"
+                                    Text="{Binding Category}"
+                                    VerticalOptions="Center" />
+
+                                <Image
+                                    Grid.Row="1"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="1"
+                                    Source="{Binding ImagePath}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ScrollView>
 
 </ContentPage>
