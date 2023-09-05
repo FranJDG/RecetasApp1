@@ -4,10 +4,10 @@ using RecetasApp1.Models;
 namespace RecetasApp1
 {
     public partial class MainPage : ContentPage
-    {   
+    {
         public MainPage()
         {
-            InitializeComponent();            
+            InitializeComponent();
 
             var infoButton = new ToolbarItem("Info", "info.png", () =>
             {
@@ -53,8 +53,8 @@ namespace RecetasApp1
 
         private void Info()
         {
-            DisplayAlert("", "Recetas\n\nCreado con .NET MAUI\n\nv1.0    25/08/2023\n\nFran Díaz", "Ok");
-            
+            DisplayAlert("", "Recetas\n\nCreado con .NET MAUI\n\nv1.1    25/08/2023\n\nFran Díaz", "Ok");
+
         }
     }
 }
