@@ -33,50 +33,51 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-	  <ApplicationTitle>Recetas</ApplicationTitle>
-	  <ApplicationId>com.companyname.recetas</ApplicationId>
+	  <ApplicationTitle>RecetasApp1</ApplicationTitle>
+	  <ApplicationId>com.companyname.recetasApp1</ApplicationId>
+	  <DebugSymbols>False</DebugSymbols>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-	  <ApplicationTitle>Recetas</ApplicationTitle>
-	  <ApplicationId>com.companyname.recetas</ApplicationId>
+	  <ApplicationTitle>RecetasApp1</ApplicationTitle>
+	  <ApplicationId>com.companyname.recetasApp1</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-	  <ApplicationTitle>Recetas</ApplicationTitle>
-	  <ApplicationId>com.companyname.recetas</ApplicationId>
+	  <ApplicationTitle>RecetasApp1</ApplicationTitle>
+	  <ApplicationId>com.companyname.recetasApp1</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-	  <ApplicationTitle>Recetas</ApplicationTitle>
-	  <ApplicationId>com.companyname.recetas</ApplicationId>
+	  <ApplicationTitle>RecetasApp1</ApplicationTitle>
+	  <ApplicationId>com.companyname.recetasApp1</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-	  <ApplicationTitle>Recetas</ApplicationTitle>
-	  <ApplicationId>com.companyname.recetas</ApplicationId>
+	  <ApplicationTitle>RecetasApp1</ApplicationTitle>
+	  <ApplicationId>com.companyname.recetasApp1</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-	  <ApplicationTitle>Recetas</ApplicationTitle>
-	  <ApplicationId>com.companyname.recetas</ApplicationId>
+	  <ApplicationTitle>RecetasApp1</ApplicationTitle>
+	  <ApplicationId>com.companyname.recetasApp1</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-	  <ApplicationTitle>Recetas</ApplicationTitle>
-	  <ApplicationId>com.companyname.recetas</ApplicationId>
+	  <ApplicationTitle>RecetasApp1</ApplicationTitle>
+	  <ApplicationId>com.companyname.recetasApp1</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-	  <ApplicationTitle>Recetas</ApplicationTitle>
-	  <ApplicationId>com.companyname.recetas</ApplicationId>
+	  <ApplicationTitle>RecetasApp1</ApplicationTitle>
+	  <ApplicationId>com.companyname.recetasApp1</ApplicationId>
 	</PropertyGroup>
 
 	<ItemGroup>
