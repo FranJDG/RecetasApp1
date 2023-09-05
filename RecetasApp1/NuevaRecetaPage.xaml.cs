@@ -171,7 +171,7 @@ public partial class NuevaRecetaPage : ContentPage
     }
 
     //Comprobar que sea de tipo double *************************************************************************
-
+          
     private void cantidad_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (!string.IsNullOrEmpty(e.NewTextValue) && !IsValidDoubleFormat(e.NewTextValue))
@@ -183,7 +183,7 @@ public partial class NuevaRecetaPage : ContentPage
     private bool IsValidDoubleFormat(string input)
     {
         // Utilizar una expresión regular para validar el formato de número double con coma o punto
-        string pattern = @"^[0-9]+([,.][0-9]*)?$";
+        string pattern = @"^[0-9]+([,.][0-9]*)?$";        
         bool validFormat = Regex.IsMatch(input, pattern);
 
         // Si se encontró una coincidencia, reemplazar punto por coma
@@ -191,10 +191,12 @@ public partial class NuevaRecetaPage : ContentPage
         {
             input = input.Replace(".", ",");
             cantidad.Text = input;
+            cantidad.CursorPosition = cantidad.Text.Length;
         }
 
         return validFormat;
     }
+    
 
     //Ajuste de los valores del slider ************************************************************************
 

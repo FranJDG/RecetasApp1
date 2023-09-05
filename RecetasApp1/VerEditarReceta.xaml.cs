@@ -282,6 +282,7 @@ public partial class VerEditarReceta : ContentPage
         {
             input = input.Replace(".", ",");
             cantidad.Text = input;
+            cantidad.CursorPosition = cantidad.Text.Length;
         }
 
         return validFormat;
